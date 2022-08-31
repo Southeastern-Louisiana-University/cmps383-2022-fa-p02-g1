@@ -82,6 +82,24 @@ app.MapPut("/api/products/{id}", (int id, ProductDto editedProduct) =>
 })
 .WithName("PUT");
 
+app.MapDelete("/api/products/{id}", (int id) =>
+{
+
+    if (Products.Where(p => p.Id == id).Any())
+    {
+        var productToDelete = Products.First(p => p.Id == id);
+        Products.Remove(productToDelete);
+
+        return Results.Ok();
+
+    }
+    else
+    {
+        return Results.NotFound();
+    }
+})
+.WithName("DELETE");
+
 app.Run();
 
 
