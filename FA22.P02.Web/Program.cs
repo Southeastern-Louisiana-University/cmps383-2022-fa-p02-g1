@@ -56,6 +56,32 @@ app.MapPost("/api/products", (ProductDto product) =>
 })
 .WithName("POST");
 
+app.MapPut("/api/products/{id}", (int id, ProductDto editedProduct) =>
+{
+    if (Products.Where(p => p.Id == id).Any())
+    {
+        if (editedProduct.Id > 0 && editedProduct.Name != null && editedProduct.Name.Length <= 120
+            && editedProduct.Description != null && editedProduct.Price != null && editedProduct.Price > 0)
+        {
+            var productToEdit = Products.FirstOrDefault(p => p.Id == id);
+
+            productToEdit.Id = editedProduct.Id;
+            productToEdit.Name = editedProduct.Name;
+            productToEdit.Description = editedProduct.Description;
+            productToEdit.Price = editedProduct.Price;
+
+            return Results.Ok(editedProduct);
+        }
+
+        return Results.BadRequest();
+    }
+    else
+    {
+        return Results.NotFound();
+    }
+})
+.WithName("PUT");
+
 app.Run();
 
 
