@@ -107,5 +107,53 @@ app.Run();
 // Hi 383 - this is added so we can test our web project automatically. More on that later
 public partial class Program 
 {
-  
+    public static List<ProductDto> Products = new List<ProductDto>
+    {
+        new ProductDto
+        {
+            Id = 1,
+            Name = "Sony PS5",
+            Description = "Brand new PS5 still in box",
+            Price = 499.99m,
+        },
+
+        new ProductDto
+        {
+            Id = 2,
+            Name = "XBox Series X",
+            Description = "Used XBox Series X in great condition.",
+            Price = 449.99m,
+        },
+
+        new ProductDto
+        {
+            Id = 3,
+            Name = "Marvel's Spider-Man PS5",
+            Description = "Used Marvel's Spide-Man for PS5. Disk is like new.",
+            Price = 29.99m,
+        },
+
+        new ProductDto
+        {
+            Id = 4,
+            Name = "PS5 Controller",
+            Description = "New Black PS5 controller still in box.",
+            Price = 59.99m,
+        },
+
+        new ProductDto
+        {
+            Id = 5,
+            Name = "XBox Elite Controller",
+            Description = "Used Xbox Elite Controller. Barely used, like new.",
+            Price = 89.99m,
+        },
+    };
+
+    public static int SetIdForProduct()
+    {
+        int id = Products.Select(p => p.Id).ToList().Max() + 1;
+
+        return id;
+    }
 }
